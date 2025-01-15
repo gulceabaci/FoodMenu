@@ -1,12 +1,20 @@
-import React from 'react'
+import React from 'react';
+import "./HomePage.scss";
+import { useMealContext } from '../../Context/MealContext';
+import Loader from "../../components/Loader/Loader";
+import CategoryList from "../../components/Category/CategoryList";
+import NotFound from "../../components/NotFound/NotFound";
+import MealList from "../../components/Meal/MealList";
 
-function HomePage() {
-  console.log(HomePage);
+const HomePage = () => {
+  const {categories, meals, categoryLoading, mealsLoading} = useMealContext();
+
   return (
-    <div>
-      
-    </div>
+    <main className='main-content'>
+      { (mealsLoading) ? <Loader /> : (meals === null) ? <NotFound /> : (meals?.length) ? <MealList meals = {meals} /> : "" }
+      { (categoryLoading) ? <Loader /> : <CategoryList categories = {categories} /> }
+    </main>
   )
 }
 
-export default HomePage
+export default HomePage;
